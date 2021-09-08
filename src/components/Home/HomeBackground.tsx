@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { renderScene, start, stop } from '../../utils/three';
 
 const HomeBackground = (): JSX.Element => {
@@ -58,7 +59,7 @@ const HomeBackground = (): JSX.Element => {
 
     // 1. init scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('white');
 
     // 2. init renderer
     const renderer = new THREE.WebGLRenderer({
@@ -88,6 +89,16 @@ const HomeBackground = (): JSX.Element => {
 
     controls.update();
 
+    let obj;
+    const loader = new GLTFLoader();
+
+    loader.load('/assets/gltf/gun.glb', (glb) => {
+      obj = glb.scene;
+      scene.add(obj);
+    });
+
+    const light = new THREE.DirectionalLight(0xffffff, 0.7);
+    scene.add(light);
     const handleResize = () => {
       if (!mount || !mount.current) {
         return;
