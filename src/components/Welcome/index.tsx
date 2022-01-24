@@ -1,14 +1,13 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyledSection = styled.div`
   display: flex;
   align-items: center;
-  height: calc(100vh - 2.5rem);
+  height: calc(100vh - 3rem);
   position: relative;
-  color: #ffeded;
-  background: #1e1a20;
 `;
 
 const Container = styled.div`
@@ -58,7 +57,6 @@ const Button = styled.button`
 
 function Dodecahedron() {
   const { viewport } = useThree();
-  // viewport = canvas in 3d units (meters)
 
   const ref = React.useRef<any>();
   useFrame(({ mouse }) => {
@@ -77,6 +75,7 @@ function Dodecahedron() {
 }
 
 const Welcome = (): JSX.Element => {
+  const router = useRouter();
   return (
     <StyledSection>
       <Container>
@@ -84,7 +83,7 @@ const Welcome = (): JSX.Element => {
         <Description>
           Front-end Engineer & Web Application/Creative Developer
         </Description>
-        <Button>Explore more</Button>
+        <Button onClick={() => router.push('/explore')}>Explore more</Button>
       </Container>
       <Canvas style={{ zIndex: 1, position: 'absolute' }}>
         <ambientLight />
