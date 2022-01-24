@@ -92,7 +92,7 @@ const HomeBackground = (): JSX.Element => {
     let obj;
     const loader = new GLTFLoader();
 
-    loader.load('/assets/gltf/gun.glb', (glb) => {
+    loader.load('/assets/gltf/camera.gltf', (glb) => {
       obj = glb.scene;
       scene.add(obj);
     });

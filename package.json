@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@loadable/component": "^5.15.0",
+    "@react-three/drei": "^8.6.3",
+    "@react-three/fiber": "^7.0.25",
     "gsap": "^3.7.1",
     "next": "11.1.2",
     "react": "17.0.2",
@@ -25,6 +27,7 @@
     "@types/three": "^0.131.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
+    "babel-plugin-styled-components": "^2.0.2",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "prettier": "^2.3.2",

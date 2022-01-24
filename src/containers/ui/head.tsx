@@ -27,6 +27,12 @@ const Head = (props: IHead): JSX.Element => {
 
       <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       <link rel="icon" href="favicon.ico" type="image/x-icon" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+        rel="stylesheet"
+      />
       <meta
         name="keyword"
         content={props.keywords || 'theparahouse, the para house'}

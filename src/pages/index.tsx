@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
-import HomeBackground from '../components/Home/HomeBackground';
+import Welcome from '../components/Welcome';
 
 const Home: NextPage = () => {
-  return <HomeBackground />;
+  return <Welcome />;
 };
 
 export default Home;
