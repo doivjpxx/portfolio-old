@@ -68,8 +68,8 @@ function Dodecahedron() {
 
   return (
     <mesh ref={ref} position={[2, 0, 0]}>
-      <dodecahedronBufferGeometry attach="geometry" />
-      <meshNormalMaterial attach="material" />
+      <dodecahedronBufferGeometry attach="geometry"/>
+      <meshNormalMaterial attach="material"/>
     </mesh>
   );
 }
@@ -86,9 +86,9 @@ const Welcome = (): JSX.Element => {
         <Button onClick={() => router.push('/explore')}>Explore more</Button>
       </Container>
       <Canvas style={{ zIndex: 1, position: 'absolute' }}>
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Dodecahedron />
+        <ambientLight/>
+        <pointLight position={[10, 10, 10]}/>
+        <Dodecahedron/>
       </Canvas>
     </StyledSection>
   );

@@ -39,8 +39,8 @@ const Head = (props: IHead): JSX.Element => {
       />
       <meta name="generator" content={siteName + slogan} />
       <meta name="copyright" content={siteName + slogan} />
-      <meta name="author" content="@xxxparanoise" />
-      <meta name="keywords" content="theparahouse, the para house" />
+      <meta name="author" content="@phog.hy" />
+      <meta name="keywords" content="phong hy developer" />
       <meta name="language" content="vi" />
       <meta name="description" content={props.description} />
       <meta name="author" content={props.author || siteName} />
