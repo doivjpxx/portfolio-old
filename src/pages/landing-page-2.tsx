@@ -4,12 +4,10 @@ import LandingPage from '../components/LandingPage2/Home';
 
 const Styles = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,800&display=swap");
-
-  $red: #e20001;
-  $black: #191919;
+  
   body {
     background: #fff;
-    color: black;
+    color: #191919;
     padding: 0;
     margin: 0;
     font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

@@ -19,7 +19,7 @@ const Styles = createGlobalStyle`
       .logo a {
         font-weight: 700;
         text-decoration: none;
-        color: black;
+        color: #191919;
       }
 
       .menu {
@@ -29,7 +29,7 @@ const Styles = createGlobalStyle`
           outline: none;
           cursor: pointer;
           font-size: 0.8rem;
-          color: black;
+          color: #191919;
         }
       }
     }
@@ -99,7 +99,7 @@ const Header = (): JSX.Element => {
         <div className="wrapper">
           <div className="inner-header">
             <div className="logo">
-              <Link href="/">HAMERG.</Link>
+              <a onClick={() => router.push('/')}>HAMERG.</a>
             </div>
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>

@@ -1,6 +1,16 @@
 import Link from 'next/link';
 import React from 'react';
+import { gsap } from "gsap";
 import styled from "styled-components";
+import {
+  fadeInUp,
+  handleCity, handleCityReturn,
+  handleHover,
+  handleHoverExit,
+  staggerReveal,
+  staggerRevealClose,
+  staggerText
+} from "./Animations";
 
 const StyledHam = styled.div<{ $show: boolean }>`
 
@@ -15,7 +25,7 @@ const StyledHam = styled.div<{ $show: boolean }>`
     width: 100%;
 
     .menu-secondary-background-color {
-      background: black;
+      background: #191919;
       top: 0;
       left: 0;
       right: 0;
@@ -27,7 +37,7 @@ const StyledHam = styled.div<{ $show: boolean }>`
 
     .menu-layer {
       position: relative;
-      background: red;
+      background: #e20001;
       height: 100%;
       overflow: hidden;
 
@@ -40,6 +50,10 @@ const StyledHam = styled.div<{ $show: boolean }>`
         height: 100%;
         width: 100%;
         opacity: 0;
+        background-repeat: no-repeat;
+        animation-name: backgroundEffect;
+        animation-duration: 30s;
+        animation-iteration-count: infinite;
       }
 
       .wrapper {
@@ -75,7 +89,7 @@ const StyledHam = styled.div<{ $show: boolean }>`
                   text-decoration: none;
 
                   &:hover {
-                    color: black;
+                    color: #191919;
                   }
                 }
               }
@@ -116,7 +130,7 @@ const StyledHam = styled.div<{ $show: boolean }>`
             transition: .3s ease-in-out;
 
             &:hover {
-              background: black;
+              background: #191919;
               padding: 8px 24px;
               border-radius: 4px;
             }
@@ -126,33 +140,95 @@ const StyledHam = styled.div<{ $show: boolean }>`
     }
   }
 
-`
+  @keyframes backgroundEffect {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 40% 10%;
+    }
+    50% {
+      background-position: 0 10%;
+    }
+    75% {
+      background-position: 10% 40%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+`;
+
+const dallas = "assets/landing-page-2/dallas.webp";
+const austin = "assets/landing-page-2/austin.webp";
+const newyork = "assets/landing-page-2/newyork.webp";
+const sanfrancisco = "assets/landing-page-2/sanfrancisco.webp";
+const beijing = "assets/landing-page-2/beijing.webp";
+
+const cities = [
+  { name: "Dallas", image: dallas },
+  { name: "Austin", image: austin },
+  { name: "New York", image: newyork },
+  { name: "San Francisco", image: sanfrancisco },
+  { name: "Beijing", image: beijing }
+];
+
 
 const Hamburger = ({ state }: any): JSX.Element => {
 
+  const menuLayer = React.useRef<HTMLDivElement | null>(null);
+  const reveal1 = React.useRef<HTMLDivElement | null>(null);
+  const reveal2 = React.useRef<HTMLDivElement | null>(null);
+  const info = React.useRef<HTMLDivElement | null>(null);
+  const line1 = React.useRef<HTMLLIElement | null>(null);
+  const line2 = React.useRef<HTMLLIElement | null>(null);
+  const line3 = React.useRef<HTMLLIElement | null>(null);
+  const cityBackground = React.useRef(null);
+
+  React.useEffect(() => {
+    if (state.clicked || (state.clicked && !state.initial)) {
+      gsap.to(menuLayer.current, { duration: 0, css: { display: "block" } });
+      gsap.to([reveal1.current, reveal2.current], {
+        duration: 0,
+        opacity: 1,
+        height: "100%"
+      });
+      staggerReveal(reveal1.current, reveal2.current);
+      fadeInUp(info.current);
+      staggerText(line1.current, line2.current, line3.current);
+    } else {
+      staggerRevealClose(reveal2.current, reveal1.current);
+      // Set menu to display none
+      gsap.to(menuLayer.current, { duration: 1, css: { display: "none" } });
+    }
+  }, [state]);
+
   return (
     <StyledHam $show={state.clicked}>
-      <div className="hamburger-menu">
-        <div className="menu-secondary-background-color"></div>
-        <div className="menu-layer">
-          <div className="menu-city-background"></div>
+      <div ref={menuLayer} className="hamburger-menu">
+        <div ref={reveal1} className="menu-secondary-background-color"></div>
+        <div ref={reveal2} className="menu-layer">
+          <div ref={cityBackground} className="menu-city-background"></div>
           <div className="container">
             <div className="wrapper">
               <div className="menu-links">
                 <nav>
                   <ul>
-                    <li>
+                    <li ref={line1} onMouseEnter={e => handleHover(e)}
+                        onMouseOut={e => handleHoverExit(e)}>
                       <Link href="/">Opportunity</Link>
                     </li>
-                    <li>
+                    <li ref={line2} onMouseEnter={e => handleHover(e)}
+                        onMouseOut={e => handleHoverExit(e)}>
                       <Link href="/">Solution</Link>
                     </li>
-                    <li>
+                    <li ref={line3} onMouseEnter={e => handleHover(e)}
+                        onMouseOut={e => handleHoverExit(e)}>
                       <Link href="/">Contact us</Link>
                     </li>
                   </ul>
                 </nav>
-                <div className="info">
+                <div ref={info} className="info">
                   <h3>Our Promise</h3>
                   <p>
                     The passage experienced a surge in popularity during the 1960s
@@ -163,11 +239,14 @@ const Hamburger = ({ state }: any): JSX.Element => {
                 </div>
                 <div className="locations">
                   Locations:
-                  <span>Dallas</span>
-                  <span>Austin</span>
-                  <span>New york</span>
-                  <span>San Francisco</span>
-                  <span>Beijing</span>
+                  {cities.map(el => (
+                    <span
+                      key={el.name}
+                      onMouseEnter={() => handleCity(el.image, cityBackground.current)}
+                      onMouseOut={() => handleCityReturn(cityBackground.current)}>
+                    {el.name}
+                  </span>
+                  ))}
                 </div>
               </div>
             </div>
